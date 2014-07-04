@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  customer_id: 1
+  fecha: 2014-07-03
+  importe: 1.5
+
+two:
+  customer_id: 1
+  fecha: 2014-07-03
+  importe: 1.5
