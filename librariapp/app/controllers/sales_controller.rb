@@ -15,6 +15,7 @@ class SalesController < ApplicationController
   # GET /sales/new
   def new
     @sale = Sale.new
+    @sale.customer = Customer.new
   end
 
   # GET /sales/1/edit
@@ -25,6 +26,23 @@ class SalesController < ApplicationController
   # POST /sales.json
   def create
     @sale = Sale.new(sale_params)
+
+    customer = Customer.new(customer_params)
+    @sale.fecha = Time.new #ponemos la fecha del sistema
+    #al recibir los datos, comprobar si existe el cliente, entonces se pueden actualizar sus datos
+
+    # si no existe el cliente, registrar uno nuevo
+    if @sale.customer_id.nil?
+      @sale.customer = customer
+    else
+      @sale.customer.nombreCliente = customer.nombreCliente ##si el cliente ya existe, se actualiza al nuevo valor recibido
+      @sale.customer.direccion = customer.direccion
+      @sale.customer.telefono = customer.telefono
+      @sale.customer.correo = customer.correo
+      @sale.customer.facebook = customer.facebook
+      @sale.customer.linkedln = customer.linkedln
+      @sale.customer.RFC = customer.RFC
+    end
 
     respond_to do |format|
       if @sale.save
@@ -70,5 +88,9 @@ class SalesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def sale_params
       params.require(:sale).permit(:customer_id, :fecha, :importe)
+    end
+
+    def customer_params
+      params.require(:customer).permit(:nombreCliente, :telefono, :direccion, :RFC, :correo, :facebook, :linkedln)
     end
 end

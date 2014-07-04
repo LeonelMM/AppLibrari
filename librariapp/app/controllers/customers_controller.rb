@@ -4,7 +4,18 @@ class CustomersController < ApplicationController
   # GET /customers
   # GET /customers.json
   def index
-    @customers = Customer.all
+    
+    if params[:q]
+      @customers = Customer.where("nombre  LIKE '%"+params[:q]+"%'")
+    else
+      @customers = Customer.all
+    end
+    #@clients = Client.all
+    #@clients = Client.find(:all,:conditions => ['nombre LIKE ?', "#{params[:q]}%"],  :limit => 8, :order => 'nombre')
+    respond_to do |format|
+      format.html
+      format.json { render :json => @clients }
+    end
   end
 
   # GET /customers/1
@@ -27,12 +38,18 @@ class CustomersController < ApplicationController
     @customer = Customer.new(customer_params)
 
     respond_to do |format|
-      if @customer.save
-        format.html { redirect_to @customer, notice: 'Customer was successfully created.' }
-        format.json { render :show, status: :created, location: @customer }
+      if @customer.valid? 
+        puts "cliente valido"
+        if @customer.save
+          format.html { redirect_to @customer, notice: 'Customer was successfully created.' }
+          format.json { render :show, status: :created, location: @customer }
+        else
+          format.html { render :new }
+          format.json { render json: @customer.errors, status: :unprocessable_entity }
+        end
       else
         format.html { render :new }
-        format.json { render json: @customer.errors, status: :unprocessable_entity }
+        format.json { render json: @client.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -58,6 +75,21 @@ class CustomersController < ApplicationController
     respond_to do |format|
       format.html { redirect_to customers_url, notice: 'Customer was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def find
+    respond_to do |format|
+      if params[:id]
+        @client = Customer.find_by id: params[:id]
+      end
+      if @customer.nil?
+        @customer = Customer.new
+        format.html { render :new }
+      else
+        format.html { render :show }
+      end
+      format.json { render json: @client, status: :ok}
     end
   end
 
