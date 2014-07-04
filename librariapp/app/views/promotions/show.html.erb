@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nombrecliente:</strong>
+  <%= @promotion.nombreCliente %>
+</p>
+
+<p>
+  <strong>Fecha:</strong>
+  <%= @promotion.fecha %>
+</p>
+
+<p>
+  <strong>Vendedor:</strong>
+  <%= @promotion.vendedor %>
+</p>
+
+<p>
+  <strong>Mediocomunicacion:</strong>
+  <%= @promotion.medioComunicacion %>
+</p>
+
+<p>
+  <strong>Promocion:</strong>
+  <%= @promotion.promocion %>
+</p>
+
+<p>
+  <strong>Acuerdos:</strong>
+  <%= @promotion.acuerdos %>
+</p>
+
+<%= link_to 'Edit', edit_promotion_path(@promotion) %> |
+<%= link_to 'Back', promotions_path %>

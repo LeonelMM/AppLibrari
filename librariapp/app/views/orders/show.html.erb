@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Fechapedido:</strong>
+  <%= @order.fechaPedido %>
+</p>
+
+<p>
+  <strong>Fechaentrega:</strong>
+  <%= @order.fechaEntrega %>
+</p>
+
+<p>
+  <strong>Fechaentregado:</strong>
+  <%= @order.fechaEntregado %>
+</p>
+
+<p>
+  <strong>Importetotal:</strong>
+  <%= @order.importetotal %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @order.status %>
+</p>
+
+<%= link_to 'Edit', edit_order_path(@order) %> |
+<%= link_to 'Back', orders_path %>
